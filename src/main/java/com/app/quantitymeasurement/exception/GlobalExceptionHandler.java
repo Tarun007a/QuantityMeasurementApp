@@ -14,6 +14,8 @@ import org.springframework.web.context.request.WebRequest;
 import com.app.quantitymeasurement.Application;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.swing.plaf.metal.MetalRootPaneUI;
+
 class ErrorResponse{
 	public LocalDateTime timeStamp;
 	public int status;
@@ -51,6 +53,22 @@ public class GlobalExceptionHandler {
 		 
 		 return ResponseEntity.badRequest().body(errorResponse);
 	}
+
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException ex,
+																	 WebRequest request) {
+		log.info(ex.getMessage());
+
+		ErrorResponse errorResponse = new ErrorResponse();
+
+		errorResponse.timeStamp = LocalDateTime.now();
+		errorResponse.status = HttpStatus.BAD_REQUEST.value();
+		errorResponse.error = "Quantity measurement error";
+		errorResponse.message = ex.getMessage();
+		errorResponse.path = request.getDescription(false).replace("uri=", "");
+
+		return ResponseEntity.badRequest().body(errorResponse);
+	}
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorResponse> handleException(Exception ex, WebRequest request) {
@@ -59,7 +77,7 @@ public class GlobalExceptionHandler {
 		
 		errorResponse.timeStamp = LocalDateTime.now();
 		errorResponse.status = HttpStatus.BAD_REQUEST.value();
-		errorResponse.error = "Quantity mesurement error";
+		errorResponse.error = "Quantity measurement error";
 		errorResponse.message = ex.getMessage();
 		errorResponse.path = request.getDescription(false).replace("uri=", "");
 		
