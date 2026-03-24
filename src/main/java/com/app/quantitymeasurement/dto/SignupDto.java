@@ -18,6 +18,6 @@ public class SignupDto {
 	
 	@NotBlank
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z[0-9]@$!%*?&]{8,15}$",
-	message = "Password must contain 1 digit, 1 lowecase, 1 uppercase, 1 special symbol, minimum 8 characters")
+	message = "Password must contain 1 digit, 1 lowercase, 1 uppercase, 1 special symbol, minimum 8 characters")
 	private String password;
 }
