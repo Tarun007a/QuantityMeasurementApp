@@ -13,6 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -21,6 +23,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final JWTFilter filter;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(c -> c.disable())
@@ -28,8 +32,13 @@ public class SecurityConfig {
             .httpBasic(Customizer.withDefaults())
             .userDetailsService(userDetailsService)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+                .oauth2Login(oauth -> {
+                    oauth.loginPage("/login/google");
+                    oauth.successHandler(authenticationSuccessHandler);
+                    oauth.failureHandler(authenticationFailureHandler);
+                })
         	.authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/v1/auth/**").permitAll()
+                    .requestMatchers("/api/v1/auth/**", "/login/**","/swagger-ui/index.html").permitAll()
                     .anyRequest().authenticated());
   
         return http.build();

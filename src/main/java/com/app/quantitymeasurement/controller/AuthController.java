@@ -31,15 +31,6 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@Valid @RequestBody LoginDto loginDto, HttpServletResponse response) {
 		String token = userService.login(loginDto);
-
-		Cookie cookie = new Cookie("JWT", token);
-
-		cookie.setMaxAge(60*60*24);
-		cookie.setHttpOnly(true);
-		cookie.setPath("/");
-//		cookie.setSecure(true);   enable in production
-
-		response.addCookie(cookie);
 		return ResponseEntity.accepted().body(token);
 	}
 }
