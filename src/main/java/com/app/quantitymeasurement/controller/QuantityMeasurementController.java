@@ -27,8 +27,10 @@ public class QuantityMeasurementController {
     @PostMapping("/compare")
     @Operation(summary = "Compare two quantities")
     public ResponseEntity<QuantityMeasurementDTO> performComparison(@Valid @RequestBody QuantityInputDTO input) {
-    	log.info(input.toString());
-    	return ResponseEntity.ok(service.compare(input.getThisQuantityDTO(), input.getThatQuantityDTO()));
+    	log.info("compare called");
+        QuantityMeasurementDTO compareDto = service.compare(input.getThisQuantityDTO(), input.getThatQuantityDTO());
+        log.info(compareDto.toString());
+        return ResponseEntity.ok(compareDto);
     }
 
     @PostMapping("/convert")
