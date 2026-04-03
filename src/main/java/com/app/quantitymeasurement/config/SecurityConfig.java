@@ -36,7 +36,6 @@ public class SecurityConfig {
         	.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .httpBasic(Customizer.withDefaults())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .userDetailsService(userDetailsService)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .oauth2Login(oauth -> {
                     oauth.loginPage("/login/google");

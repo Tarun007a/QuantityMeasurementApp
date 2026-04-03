@@ -1,16 +1,16 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/qma_db
-    username: root
-    password: ${db_password}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: ${google_client_id}
-            client-secret: ${google_client_secret}
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
 
   jpa:
     hibernate:
@@ -18,4 +18,8 @@ spring:
 
 security:
   jwt:
-    secret: ${jwt-secret-key}
+    secret: ${JWT_SECURITY_KEY}
+
+server:
+  port:
+    ${PORT:8080}
