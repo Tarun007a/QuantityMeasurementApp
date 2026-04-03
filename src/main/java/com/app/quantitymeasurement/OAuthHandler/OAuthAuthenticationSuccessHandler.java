@@ -3,7 +3,6 @@ package com.app.quantitymeasurement.OAuthHandler;
 import com.app.quantitymeasurement.model.User;
 import com.app.quantitymeasurement.repository.UserRepo;
 import com.app.quantitymeasurement.service.JWTService;
-import com.app.quantitymeasurement.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
