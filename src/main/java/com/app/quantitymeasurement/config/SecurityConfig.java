@@ -4,6 +4,7 @@ import com.app.quantitymeasurement.filters.JWTFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -43,8 +44,9 @@ public class SecurityConfig {
                     oauth.failureHandler(authenticationFailureHandler);
                 })
         	.authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/v1/auth/**", "/login/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                    .anyRequest().authenticated());
+                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+//                    .requestMatchers("/api/v1/auth/**", "/login/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                    .anyRequest().permitAll());
   
         return http.build();
     }
