@@ -1,12 +1,8 @@
 spring:
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+#  datasource:
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
 
   security:
     oauth2:
@@ -19,6 +15,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
 
 security:
   jwt:
